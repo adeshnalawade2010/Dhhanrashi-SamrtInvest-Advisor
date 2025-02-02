@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mutual Fund Homepage</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("{{ url_for('static', filename='home.gif') }}");
+        background-size: cover;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .header {
+        background-color:#007bff;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .menu {
+        display: flex;
+        justify-content: space-around;
+        background-color: rgba(255, 255, 255, 0.999); 
+        padding: 10px 0;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    }
+
+    .menu a{
+        text-decoration: none;
+        color: #007bff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    .no-border {
+        border: none;
+        background-color: transparent; 
+        
+      }
+
+    .menu a:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .menu a.logout { /* Added CSS rule for logout button */
+        background-color: #ff0000; /* Red color */
+        color: white; /* White text */
+    }
+
+    .menu a.logout:hover {
+        background-color: #3b10fa; /* Darker red color on hover */
+    }
+
+    .content {
+        padding: 20px;
+        font-weight:normal;
+        /*background-color: rgba(255, 255, 255, 0.8);*/
+        border-radius: 10px;
+    }
+
+    .footer {
+        background: transparent;
+        /*background-color: #007bff;*/
+        color: rgb(5, 0, 0);
+        text-align: center;
+        font-weight: bolder;
+        font-size: medium;
+        padding: 10px 0;
+    }
+
+    @media screen and (max-width: 768px) {
+        .menu {
+            flex-direction: column;
+            align-items: center;
+        }
+        .menu a {
+            margin-bottom: 10px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Welcome to Mutual Fund</h1>
+</div>
+
+<div class="container">
+    <div class="menu">
+        <a href="{{url_for('prediction')}}">Prediction</a>
+        <a href="{{url_for('dashboard')}}">Visualise</a>
+        <a href="{{url_for('index')}}">Calculation</a>
+        <a href="{{url_for('calculator')}}">Calculator</a>
+        <a href="{{url_for('news',category=['sports','health','business','science','technolgy','politics'])}}">News</a>
+        <a href="{{url_for('profile')}}">Profile</a>
+        <a href="{{url_for('logout')}}" class="logout">Logout</a>
+
+    </div>
+
+    <div class="content">
+        <h2>About Mutual Fund</h2>
+        <p>Mutual funds are a type of financial vehicle made up of a pool of money collected from many investors to invest in securities such as stocks, bonds, money market instruments, and other assets. Mutual funds are operated by professional money managers, who allocate the fund's assets and attempt to produce capital gains or income for the fund's investors.</p>
+        <p>They offer diversification, professional management, and liquidity. Mutual funds are popular among individual investors because they provide a cost-effective way to invest in a diversified portfolio of stocks, bonds, or other securities.</p>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2024 Mutual Fund. All Rights Reserved.</p>
+</div>
+</body>
+</html>

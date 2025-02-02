@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutual _fund</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .h1{
+            color: blue;
+            font-size:x-large;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight:100;
+            padding: auto;
+            margin-top: 3px;
+            margin-left:700px;
+            
+
+        }
+    body{
+        background-image: url("{{ url_for('static', filename='income1.jpg') }}");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    .h3{
+        font-size: medium;
+        background: transparent;
+    }
+
+    </style>
+</head>
+<!--  -->
+  
+  <body class="body_primary" background="income.jpg">
+    <form method="post" accept-charset="utf-8" id="mutual" >
+    <div class="container">
+        <div class="row">
+            <div class="card" style="width: 100%; height: 100%; margin-top: 50px;">
+                <div class="card-header" style="text-align: center;">
+                    <h1><b style="color: rgb(25, 245, 9);">Mutual Fund App</b></h1>
+                </div>
+                <div class="card">
+                    <h3>
+                        “The most popular investing products are the worst ones for investors.”
+                        ― Robert Rolih
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="category mt-4">
+            <label for="category">Category:</label>
+            <select id="category" name="category" class="form-control" required>
+                <option value="">Select a category</option>
+            </select>
+        </div>
+        <div class="sub_category mt-3">
+            <label for="sub_category">Sub_category:</label>
+            <select id="sub_category" name="sub_category" class="form-control" required>
+                <option value="">Select a sub_category</option>
+            </select>
+        </div>
+        <div class="scheme_name mt-3">
+            <label for="scheme_name">Scheme_name:</label>
+            <select id="scheme_name" name="scheme_name" class="form-control" required>
+                <option value="">Select a scheme_name</option>
+            </select>
+        </div>
+        <div class="amc_name mt-3">
+            <label for="amc_name">Amc_name:</label>
+            <select id="amc_name" name="amc_name" class="form-control" required>
+                <option value="">Select a amc_name</option>
+            </select>
+        </div>
+        <div class="user_input mt-3">
+            <label for="ammount">Enter The Ammount:</label>
+            <input type="number" id="ammount" name="ammount" class="form-control" step="0.01" placeholder="Enter a ammount " required>
+        
+        </div>
+        <div class="buttons mt-3">
+            <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+            <button type="button" class="btn btn-primary" onclick="clearForm()">Clear</button>
+        </div>
+    </div>
+    <!-- <div class="buttons mt-3"> 
+        <button type="submit" class="btn btn-primary" onclick="submitForm()" value="submit">Submit</button>
+        <button type="reset" class="btn btn-primary" onclick="clearForm()" value="reset">Clear</button>
+    </div> -->
+    
+</form>
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+<script>
+    var formValues = {}; //
+    $(document).ready(function(){
+        fetchCategory();
+        function fetchCategory(){
+            $.get('/category',function(data){
+                $('#category').empty().append('<option value="">Select a category</option>');
+                $.each(data.category,function(i,item){
+                    $('#category').append($('<option>',{
+                        value:item,
+                        text:item}));
+                });
+                
+            });
+        }
+        var category=document.getElementById("category").value;
+        $.post('/sub_category/',{category:''},function(data){
+            $('#category').empty().append('<option value="">Select a sub_category</option>');
+            $.each(data.sub_category,function(i,item){
+                $('#category').append($('<option>',{
+                    value:item,
+                    text:item
+                }));
+            });
+        }); // when category changes update sub_category dropdown
+        $('#category').change(function(){ 
+            var category=$(this).val();
+            $.post('/sub_category/',{category:category},function(data){
+              $('#sub_category').empty().append('<option value="">Select a sub_category</option>');
+              $.each(data.sub_category,function(i,item){
+                $('#sub_category').append($('<option>',{
+                    value:item,
+                    text:item
+                }));
+              });
+            });
+        });
+        var sub_category=document.getElementById("sub_category").value;
+        $.post('/scheme_name/',{category:'',sub_category:''},function(data){
+            $('#category,#sub_category').empty().append('<option value="">Select a scheme_name</option>');
+            $.each(data.scheme_name,function(i,item){
+                $('#category','#sub_category').append($('<option>',{
+                    value:item,
+                    text:item
+                }));
+            });
+        }); // when category , sub_category changes update scheme_name dropdown
+        $('#category,#sub_category').change(function(){
+            var category=$('#category').val();
+            var sub_category=$('#sub_category').val();
+            $.post('/scheme_name',{category:category,sub_category:sub_category},function(data){
+                $('#scheme_name').empty().append('<option value="">Select a scheme_name</option>');
+                $.each(data.scheme_name,function(i,item){
+                    $('#scheme_name').append($('<option>',{
+                        value:item,
+                        text:item
+                  }));
+                });
+            });
+        });
+        var category=document.getElementById("category").value;
+        var sub_category= document.getElementById("sub_category").value; 
+        var scheme_name= document.getElementById("scheme_name").value;
+        $.post('/amc_name/',{category:'',sub_category:'',scheme_name:''},function(data){
+            $('#category, #sub_category, #scheme_name').empty().append('<option value="">Select an amc_name</option>');
+            $.each(data.amc_name,function(i,item){
+                $('#category','#sub_category','#scheme_name').append($('<option>',{
+                    value:item,
+                    text:item
+                }));
+            });
+        });
+        // when category sub_category scheme_name changes update amc_name
+        $('#category, #sub_category,#scheme_name').change(function(){
+            var category=$('#category').val();
+            var sub_category=$('#sub_category').val();
+            var scheme_name=$('#scheme_name').val();
+            $.post('/amc_name',{category:category,sub_category:sub_category,scheme_name:scheme_name},function(data){
+                $('#amc_name').empty().append('<option value="">Select an AMC</option>');
+                $.each(data.amc_name,function(i,item){
+                    $('#amc_name').append($('<option>',{
+                        value:item,
+                        text:item
+                    }));
+                });
+            });
+
+        });
+        formValues = {
+            category: document.getElementById("category").value,
+            sub_category: document.getElementById("sub_category").value,
+            scheme_name: document.getElementById("scheme_name").value,
+            amc_name: document.getElementById("amc_name").value,
+            ammount: document.getElementById("ammount").value,
+        };
+    });
+    function submitForm() {
+        var category = document.getElementById("category").value;
+        var sub_category = document.getElementById("sub_category").value;
+        var scheme_name = document.getElementById("scheme_name").value;
+        var amc_name = document.getElementById("amc_name").value;
+        var ammount = document.getElementById("ammount").value;
+        var input_number=parseFloat(ammount);
+        // Check if any field is empty
+        if ( category == "" || sub_category == "" || scheme_name == "" || amc_name == "" ||ammount.trim() == "" ||isNaN(ammount)||input_number<=0) {
+            alert("Please fill the form properly!");
+            alert("Please Enter positive number only");
+            // Restore the form values to their initial state
+            document.getElementById("category").value = formValues.category;
+            document.getElementById("sub_category").value = formValues.sub_category;
+            document.getElementById("scheme_name").value = formValues.scheme_name;
+            document.getElementById("amc_name").value = formValues.amc_name;
+            document.getElementById("ammount").value = formValues.ammount;
+        } else {
+            alert("Form submitted!");
+            window.location.href ='/calculation?category=' + category + '&sub_category=' + sub_category + '&scheme_name=' + scheme_name + '&amc_name=' + amc_name + '&input_value=' + ammount,'&min_sip'+ min_sip;
+            // Reset the form values
+            /*formValues = {
+                category: "",
+                sub_category: "",
+                scheme_name: "",
+                amc_name: "",
+                input_value: "",
+            };*/
+        }
+    }
+    function clearForm() {
+        var confirmation = window.confirm("Are you sure you want to clear the form?");
+        if (confirmation) {
+            document.getElementById("mutual").reset();
+            // Save the cleared form values
+            formValues = {
+                category: "",
+                sub_category: "",
+                scheme_name: "",
+                amc_name: "",
+                input_value: "",
+            };
+        } else {
+            // Restore the form values to their initial state
+            document.getElementById("category").value = formValues.category;
+            document.getElementById("sub_category").value = formValues.sub_category;
+            document.getElementById("scheme_name").value = formValues.scheme_name;
+            document.getElementById("amc_name").value = formValues.amc_name;
+            document.getElementById("input_value").value = formValues.input_value;
+        }
+    }
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <meta http-equiv="Expires" content="0">
+  <title>Mutual Fund Login</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url("{{ url_for('static', filename='sunrise.jpg') }}");
+      background-size:cover;
+      
+      
+    }
+
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-form {
+      background:transparent;  /*rgba(255, 255, 255, 0.8); */
+      padding: 20px;
+      border-style: solid;
+      border-radius:50px  8px;
+      
+      border-color: rgb(0, 17, 13);
+      text-align: center;
+      inset: 2px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      
+      
+    }
+   /*.login-form::before{
+      content: '';
+      position: absolute;
+      left: 0%;
+      top: 30%;
+      width: 450px;
+      height: 100px;
+      background: linear-gradient(0deg,transparent,#f2034b,#f2034b,#f2034b);
+      transform-origin: bottom right;
+      animation: animate 6s linear infinite;
+    }
+    .login-form::after{
+      content: '';
+      position: absolute;
+      left: 0%;
+      top: 30%;
+      width: 450px;
+      height: 100px;
+      background: linear-gradient(0deg,transparent,#0b33fc,#0b33fc,#0b33fc);
+      transform-origin: bottom right;
+      animation: animate 6s linear infinite;
+      animation-delay:-3s ;
+    }
+    @keyframes animate{
+      0%{
+        transform: rotate(0deg);
+      }
+      100%{
+        transform: rotate(360deg);
+      }
+    }*/
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 80%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    @keyframes blink{
+      50%{
+        opacity: 0;
+      }
+      80%{
+        opacity: .5;
+      }
+    }
+    .flashed-messages{
+      color: hsl(0, 95%, 50%);
+      font-size:  30px;
+      font-weight: 50px;
+      text-align: center;
+      font-family:'Times New Roman', Times, serif;
+      animation: blink 1s  linear infinite ;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: transparent;
+      
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .forgot-password ,.login {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .signup-link {
+      margin-top: 20px;
+    }
+
+    .signup-link a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    @media screen and (min-width: 768px) {
+      .login-form,.login-form::before,.login-form::after {
+        width: 50%;
+      }
+    }
+
+    @media screen and (min-width: 1024px) {
+      .login-form , .login-form::before .login-form::after{
+        width: 30%;
+      }
+    }
+  </style>
+</head>
+<body>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashed-messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+  <div class="login-container">
+    <form class="login-form" action="{{ url_for('login') }}" method="post">
+      
+      {%if mesage is defined and mesage%}
+      <div class="alert alert-warnings">{{mesage}}</div>
+      {%endif%}
+      <h2>Login</h2>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="eamil" name="email" placeholder="Enter Email!" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="login">
+      <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+      <div class="signup-link">
+        <div class="forgot-password">
+          <button type="button" onclick="forgot()"> Forgot Password?</button>
+         </div><br>
+        <span>Don't have an account? <button type="button" onclick="singup()">Sign Up</button></span>
+      </div>
+    </form>
+  </div>
+  <script>
+    function singup(){
+      alert("sinup into registration!!")
+      window.location.href='/registration'
+    }
+    function forgot(){
+      alert("Into forgot password")
+      window.location.href='/forgot'
+    }
+  </script>
+</body>
+</html>

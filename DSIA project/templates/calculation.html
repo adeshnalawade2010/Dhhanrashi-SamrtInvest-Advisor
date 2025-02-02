@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>returns Ammount</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url("{{url_for('static',filename='calculation1.jpg')}}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .returned {
+            max-width: 600px;
+            margin: 0 auto;
+            background: transparent;
+            /*background-color: grey;*/
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .returned label {
+            display: block;
+            margin-bottom: 5px;
+            color: hsl(0, 100%, 2%);
+        }
+
+        .returned input[type="text"],
+        .returned input[type="number"] {
+            width: calc(100% - 12px);
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .returned input[type="text"]:focus,
+        .returned input[type="number"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .returned input[type="text"][readonly],
+        .returned input[type="number"][readonly] {
+            background-color: #f0f0f0;
+        }
+
+        .returned input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .returned input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+         
+</style>
+</head>
+<body>
+    <form method="post"  id="returned" class="returned">
+        <h1>Mutual Fund Information</h1>
+        <br>
+        
+            <div class="category">
+                <label for="category"> Category:</label>
+                <input type="text" id="category" name="category" value="{{category}}" readonly>
+            </div>
+            <br>
+
+            <div class="sub_category">
+                <label for="sub_category">Sub_category:</label>
+                <input type="text" id="sub_category" name="sub_category" value="{{sub_category}}" readonly>
+            </div>
+            <br>
+            <div class="scheme_name">
+                <label for="scheme_name">Schme_name:</label>
+                <input type="text" id="scheme_name" name="scheme_name" value="{{scheme_name}}" readonly>
+            </div>
+            <br>
+            <div class="amc_name">
+                <label for="amc_name">Amc_name:</label>
+                <input type="text" id="amc_name" name="amc_name" value="{{amc_name}}" readonly>
+            </div>
+            <br>
+            <div class="ammount">
+                <label for="ammount">Ammount:</label>
+                <input type="number" id="ammount" name="ammount" value="{{ammount}}" readonly>
+            </div>
+            <br>
+            <div class="min_sip">
+                <label for="min_sip">Min_sip:</label>
+                <input type="number" id="min_sip" name="min_sip" value="{{min_sip}}" readonly>
+            </div>
+            <br>
+            <div class="min_lumpsum">
+                <label for="min_lumpsum">Min_lumpsum:</label>
+                <input type="number" id="min_lumpsum" name="min_lumpsum" value="{{min_lumpsum}}" readonly>
+            </div>
+            <br>
+            <div class="expense_ratio">
+                <label for="expense_ratio">expense_ratio:</label>
+                <input type="number" id="expense_ratio" name="expense_ratio" value="{{expense_ratio}}" readonly>
+            </div>
+            <br>
+            <div class="fund_size_cr">
+                <label for="fund_size_cr">fund_size_cr:</label>
+                <input type="number" id="fund_size_cr" name="fund_size_cr" value="{{fund_size_cr}}" readonly>
+            </div>
+            <br>
+            <div class="fund_age_yr">
+                <label for="fund_age_yr">fund_age_yr:</label>
+                <input type="number" id="fund_age_yr" name="fund_age_yr" value="{{fund_age_yr}}" readonly>
+            </div>
+            <br>
+            <div class="sortino">
+                <label for="sortino">sortino:</label>
+                <input type="number" id="sortino" name="sortino" value="{{sortino}}" readonly>
+            </div>
+            <br>
+            <div class="alpha">
+                <label for="alpha">alpha:</label>
+                <input type="number" id="alpha" name="alpha" value="{{alpha}}" readonly>
+            </div>
+            <br>
+            <div class="sd">
+                <label for="sd">sd:</label>
+                <input type="number" id="sd" name="sd" value="{{sd}}" readonly>
+            </div>
+            <br>
+            <div class="beta">
+                <label for="beta">beta:</label>
+                <input type="number" id="beta" name="beta" value="{{beta}}" readonly>
+            </div>
+            <br>
+            <div class="sharpe">
+                <label for="sharpe">sharpe:</label>
+                <input type="number" id="sharpe" name="sharpe" value="{{sharpe}}" readonly>
+            </div>
+            <br>
+            <div class="risk_level">
+                <label for="risk_level">Risk_level:</label>
+                <input type="number" id="risk_level" name="risk_level" value="{{risk_level}}" readonly>
+            </div>
+            <br>
+            <div class="rating">
+                <label for="rating">Rating:</label>
+                <input type="number" id="rating" name="rating" value="{{rating}}" readonly>
+            </div>
+            <br>
+            <div class="returns_1yr_rate">
+                <label for="returns_1yr_rate">returns_1yr_rate</label>
+                <input type="number" id="returns_1yr_rate" name="{{returns_1yr_rate}}" value="{{returns_1yr_rate}}" readonly>
+            </div>
+            <br>
+            <div class="returns_3yr_rate">
+                <label for="returns_3yr_rate">returns_3yr_rate:</label>
+                <input type="number" id="returns_3yr_rate" name="{{returns_3yr_rate}}" value="{{returns_3yr_rate}}" readonly>
+            </div>
+            <br>
+            <div class="returns_5yr_rate">
+                <label for="returns_5yr_rate">returns_5yr_rate:</label>
+                <input type="number" id="returns_5yr_rate" name="{{returns_5yr_rate}}" value="{{returns_5yr_rate}}" readonly>
+            </div>
+            <br>
+            <div class="returns_1yr_amt">
+                <label for="returns_1yr_amt">returns_1yr_amt:</label>
+                <input type="number" id="returns_1yr_amt" name="returns_1yr_amt" value="{{returns_1yr_amt}}" readonly>
+            </div>
+            <br>
+            <div class="returns_3yr_amt">
+                <label for="returns_3yr_amt">returns_3yr_amt:</label>
+                <input type="number" id="returns_3yr_amt" name="returns_3yr_amt" value="{{returns_3yr_amt}}" readonly>
+            </div>
+            <br>
+            <div class="returns_5yr_amt">
+                <label for="returns_5yr_amt">returns_5yr_amt:</label>
+                <input type="number" id="returns_5yr_amt" name="returns_5yr_amt" value="{{returns_5yr_amt}}" readonly>
+            </div>
+            <br>
+        
+    </form>
+   
+</body>
+</html>

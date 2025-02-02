@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    
+</head>
+<body>
+     <h2> Forgot your Password</h2>
+     <form action="{{url_for('forgot_password')}}" method="post">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <button type="submit" class="btn btn-primary"  onclick="forgot()">submit</button>
+     </form>
+     <script>
+        function forgot(){
+            var email=document.getElementById(eamil);
+            var validemail= /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (email!=="" && email.match(validemail)){
+                alert("Attention: One-Time Password Verification Required. Verify Your Identity with OTP in Email")
+                window.location.href='/forgot'
+            } else{
+                alert("Enter valid Email Address")
+            }
+        }
+     </script>
+</body>
+</html>

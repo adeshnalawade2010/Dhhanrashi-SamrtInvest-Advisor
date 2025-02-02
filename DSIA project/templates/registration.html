@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mutual Fund Registration</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url("{{ url_for('static', filename='registration.gif') }}");
+      background-size: cover;
+    }
+
+    .registration-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+    }
+
+    .registration-form {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+    @keyframes blink{
+      50%{
+        opacity: 0;
+      }
+      80%{
+        opacity: .5;
+      }
+    }
+    .flashed-messages{
+      color: hsl(0, 95%, 50%);
+      font-size:  30px;
+      font-weight: 50px;
+      text-align: center;
+      font-family:'Times New Roman', Times, serif;
+      animation: blink 1s  linear infinite ;
+    }
+
+    @media screen and (min-width: 768px) {
+      .registration-form {
+        width: 50%;
+      }
+    }
+
+    @media screen and (min-width: 1024px) {
+      .registration-form {
+        width: 30%;
+      }
+    }
+  </style>
+</head>
+<body>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashed-messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+  <div class="registration-container">
+    <form class="registration-form" id="registrationForm" action="{{ url_for('register') }}" method="post">
+     
+      <h2>Register for Mutual Fund</h2>
+      <div class="form-group">
+        <label for="user">Username:</label>
+        <input type="text" id="user" name="user"  placeholder="Enter username!" required>
+      </div>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter name!" required>
+      </div>
+      <div class="form-group">
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" id="mobile" name="mobile" placeholder="Enter Mobile Number(+91)" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter Email!" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"  placeholder=" Enter Password" required>
+      </div>
+      <div class="form-group">
+        <label for="confirmpassword">Confirm Password:</label>
+        <input type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirmed Password" required>
+      </div>
+      <!-- <div class="form-group">
+        <label for="otp">OTP:</label>
+        <input type="text" id="otp" name="otp" required>
+        <button type="button" id="otpButton">Get OTP</button>
+      </div> -->
+      <button type="submit" onclick="register()">Register</button>
+    </form>
+  </div>
+
+  <script>
+    /*document.addEventListener('DOMContentLoaded', function () {
+      const otpButton = document.getElementById('otpButton');
+      const otpInput = document.getElementById('otp');
+
+      otpButton.addEventListener('click', function () {
+        
+        const otp = Math.floor(1000 + Math.random() * 9000);
+        otpInput.value = otp;
+      });
+
+      const registrationForm = document.getElementById('registrationForm');
+      registrationForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        
+  
+        const formData = new FormData(registrationForm);
+        for (const [key, value] of formData.entries()) {
+          console.log(key + ': ' + value);
+        }
+        
+      });
+    }); */
+    function register(){
+      var user=document.getElementById("user").value;
+      var name=document.getElementById("name").value;
+      var mobile=document.getElementById("mobile").value;
+      var email=document.getElementById("email").value;
+      var password=document.getElementById("password").value;
+      var confirmpassword=document.getElementById("confirmPassword").value;
+      var validChars = /^[A-Za-z]+$/;
+      var mob= /^\+[1-9]{1}[0-9]{3,14}$/;
+      var validemail= /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      var pass=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      function containsMismatch(name, validChars) {
+        const regex = new RegExp(`[^${validChars}]`);
+        return regex.test(name);
+    }
+    function containMismatch(email, validemail) {
+      const regex = new RegExp(`[^${validemail}]`);
+      return regex.test(email);
+  }
+
+
+
+       if(password!==confirmpassword){
+          alert("please Enter correct password")
+          window.location.href='/registraion'
+           }else if(containsMismatch(name, validChars)){
+
+          alert("please enter valid name!! ")
+          window.location.href='/registration'
+        }
+        else if(containMismatch(email, validemail)){
+
+          alert("please enter valid email!! ")
+          window.location.href='/registration'
+        }
+
+        else(user!==""&&name!==""&&mobile!==""&&email!==""&&password!==""&&confirmpassword!==""&&name.match(validChars)&&mobile.match(mob)&&email.match(validemail)&&password.match(pass)&&password===confirmpassword)
+        {
+          alert("registration successfully!!!")
+            window.location.href='/'
+        }
+    }
+  
+  </script>
+</body>
+</html>

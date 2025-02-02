@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Output</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{{url_for('static',filename='output.gif')}}"); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .output {
+            width: 70%; 
+            margin: 50px auto 0; 
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.5); 
+        }
+        h2 {
+            text-align: center;
+        }
+        .output .category,
+        .output .sub_category,
+        .output .scheme_name,
+        .output .amc_name,
+        .output .returns_1yr,
+        .output .returns_3yr,
+        .output .returns_5yr {
+            margin-bottom: 15px;
+        }
+        .output label {
+            display: block;
+            font-weight: bold;
+        }
+        .output input[type="text"] {
+            width: calc(100% - 20px); 
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            resize: vertical;
+        }
+        @media screen and (max-width: 600px) {
+            .output {
+                padding: 10px;
+            }
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<form action="post" id="output" class="output">
+    <h2>BEST FUNDS</h2>
+    <div class="output">
+        <div class="category">
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" value="{{category}}" readonly>
+        </div>
+        <div class="sub_category">
+            <label for="sub_category">Sub_category:</label>
+            <input type="text" id="sub_category" name="sub_category" value="{{sub_category}}" readonly>
+        </div>
+        <div class="scheme_name">
+            <label for="schem_name">Scheme_name:</label>
+            <input type="text" name="scheme_name" id="scheme_name" value="{{scheme_name}}" readonly>
+        </div>
+        <div class="amc_name">
+            <label for="amc_name">Amc_name:</label> 
+            <input type="text" id="amc_name" name="amc_name" value="{{amc_name}}" readonly>
+        </div>
+        <div class="returns_1yr">
+            <label for="returns_1yr">Returns_1yr_rate</label>
+            <input type="text" id="returns1yr" name="returns_1yr" value="{{returns_1yr}}" readonly>
+        </div>
+        <div class="returns_3yr">
+            <label for="returns_3yr">Returns_3yr_rate</label>
+            <input type="text" id="returns_3yr" name="returns_3yr" value="{{returns_3yr}}" readonly>
+        </div>
+        <div class="returns_5yr">
+            <label for="returns_5yr">Returns_5yr_rate</label>
+            <input type="text" id="returns_5yr" name="returns_5yr" value="{{returns_5yr}}" readonly>
+        </div>
+    </div>
+</form>
+</body>
+</html>
