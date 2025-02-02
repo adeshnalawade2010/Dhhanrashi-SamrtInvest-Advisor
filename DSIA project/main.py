@@ -42,7 +42,7 @@ scaler = StandardScaler()
 Connection=mysql.connector.connect(
      host='localhost',
      user='root',
-     password='Adesh',
+     password='',
      database='mutual_fund'
           )
 
@@ -467,7 +467,7 @@ def calculator():
     return render_template('calculator.html')
 @retry(wait_fixed=2000, stop_max_attempt_number=3)
 def fetch_news(category):
-    API_KEY = 'f9a63b0fa9904aebbafae34ca48ca6c7'
+    API_KEY = ''
     url = f'https://newsapi.org/v2/top-headlines'
     params = {
         'country': 'in',
@@ -489,5 +489,5 @@ def news(category):
 
     
 if __name__ == '__main__':
-    app.secret_key='youknownothing'
+    app.secret_key=''
     app.run(debug=True)
